@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Lil-Bee Logics</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="auth">
+
+  <div class="auth-container">
+    <h2>Login to Access Lil-Bee Logics Services</h2>
+
+    <div class="auth-bars">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <form class="auth-form" id="loginForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required />
+
+      <label for="password">Password</label>
+      <div style="position: relative;">
+        <input type="password" id="password" placeholder="••••••••" required style="padding-right: 45px;" />
+        <button type="button" id="togglePassword"
+          style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; cursor: pointer; font-size: 18px;"
+          title="Show/Hide Password">👁️</button>
+      </div>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <p class="auth-switch">
+      Don't have an account?
+      <a href="signup.html">Sign Up</a>
+    </p>
+  </div>
+
+  <script type="module">
+    import { localAuth } from "./local-auth.js";
+
+    const form = document.getElementById("loginForm");
+    const passwordInput = document.getElementById("password");
+    const toggleBtn = document.getElementById("togglePassword");
+
+    // Password visibility toggle
+    toggleBtn.addEventListener("click", () => {
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
+      toggleBtn.textContent = type === "password" ? "👁️" : "🙈";
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await localAuth.login(email, password);
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        console.error("Login failed:", error.message);
+        alert("Login failed: " + error.message);
+      }
+    });
+  </script>
+</body>
+
+</html>
