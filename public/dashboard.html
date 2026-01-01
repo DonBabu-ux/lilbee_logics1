@@ -30,7 +30,8 @@
       <button data-tab="feed" class="tab active">Feed</button>
       <button data-tab="services" class="tab">Services</button>
       <button data-tab="chat" class="tab">Chat</button>
-      <button id="adminTabBtn" data-tab="admin" class="tab" hidden>Admin</button>
+      <button id="adminPortalBtn" class="tab" hidden onclick="window.location.href='admin-dash.html'">Admin
+        Panel</button>
       <button id="logoutBtn" class="danger">Logout</button>
     </nav>
   </aside>
@@ -77,62 +78,7 @@
       </div>
     </section>
 
-    <section id="admin" class="tab glass-card" hidden>
-      <h2>Admin Control Center</h2>
-      <div class="admin-nav">
-        <button class="sub-tab active" data-sub="adminUsers">User Management</button>
-        <button class="sub-tab" data-sub="adminServices">Service Requests</button>
-        <button class="sub-tab" data-sub="adminModeration">Content Moderation</button>
-      </div>
 
-      <div id="adminUsers" class="admin-content">
-        <h3>User Management</h3>
-
-        <div class="glass-card" style="margin-bottom: 20px;">
-          <h4>Create New User</h4>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <input type="email" id="adminNewUserEmail" placeholder="User Email"
-              style="flex:1; min-width:200px; margin-bottom:0;">
-            <input type="password" id="adminNewUserPass" placeholder="Password"
-              style="flex:1; min-width:150px; margin-bottom:0;">
-            <button id="adminCreateUserBtn">Create User</button>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="userTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="adminServices" class="admin-content" hidden>
-        <h3>Service Requests</h3>
-        <div id="adminServiceList"></div>
-      </div>
-
-      <div id="adminModeration" class="admin-content" hidden>
-        <h3>Content Moderation</h3>
-        <div class="mod-grid">
-          <div>
-            <h4>Recent Posts</h4>
-            <div id="adminPostList"></div>
-          </div>
-          <div>
-            <h4>Recent Chat Messages</h4>
-            <div id="adminChatList"></div>
-          </div>
-        </div>
-      </div>
-    </section>
 
   </main>
 

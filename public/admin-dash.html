@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | Lil-Bee Logics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard admin-dash">
+
+    <aside class="sidebar glass-card">
+        <div class="profile">
+            <div id="userAvatar" class="avatar"></div>
+            <h3 id="userEmail">Loading...</h3>
+            <span id="userRole" class="badge admin">admin</span>
+            <div class="status online">Control Center</div>
+        </div>
+
+        <nav class="menu">
+            <button data-tab="adminUsers" class="tab active">Users</button>
+            <button data-tab="adminServices" class="tab">Requests</button>
+            <button data-tab="adminModeration" class="tab">Moderation</button>
+            <hr style="border: 0.5px solid rgba(255,255,255,0.1); width: 100%; margin: 10px 0;">
+            <button onclick="window.location.href='dashboard.html'" class="tab">User Portal</button>
+            <button id="logoutBtn" class="danger">Logout</button>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <section id="adminUsers" class="tab active glass-card">
+            <div class="section-header">
+                <h2>User Management</h2>
+                <div class="glass-card" style="margin-top: 10px; padding: 15px;">
+                    <h4>Quick Create User</h4>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <input type="email" id="adminNewUserEmail" placeholder="User Email"
+                            style="flex:1; margin-bottom:0;">
+                        <input type="password" id="adminNewUserPass" placeholder="Password"
+                            style="flex:1; margin-bottom:0;">
+                        <button id="adminCreateUserBtn">Create</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container" style="margin-top: 20px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="adminServices" class="tab glass-card" hidden>
+            <h2>Global Service Requests</h2>
+            <div id="adminServiceList" class="admin-request-grid"></div>
+        </section>
+
+        <section id="adminModeration" class="tab glass-card" hidden>
+            <h2>Content Moderation</h2>
+            <div class="mod-grid">
+                <div class="glass-card">
+                    <h4>Community Posts</h4>
+                    <div id="adminPostList" class="scroll-v"></div>
+                </div>
+                <div class="glass-card">
+                    <h4>Live Chat</h4>
+                    <div id="adminChatList" class="scroll-v"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="admin-dash.js"></script>
+</body>
+
+</html>

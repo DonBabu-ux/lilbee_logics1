@@ -47,50 +47,48 @@
   </div>
 
   <script type="module">
-    import { auth, db } from "./firebase-config.js";
+    import { auth, rtdb } from "./firebase-config.js";
     import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+    import { ref, set } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
     const form = document.getElementById("signupForm");
     const passwordInput = document.getElementById("password");
-    const toggleBtn = document.getElementById("togglePassword");
-
-    // Password visibility toggle
-    toggleBtn.addEventListener("click", () => {
-      const type = passwordInput.type === "password" ? "text" : "password";
-      passwordInput.type = type;
-      toggleBtn.textContent = type === "password" ? "show" : "hide";
-    });
+    const togglePassword = document.getElementById("togglePassword");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const username = document.getElementById("username").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
+      const name = document.getElementById("username").value;
+      const phone = document.getElementById("phone").value;
 
       try {
-        // 1️⃣ Create user in Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // 2️⃣ Create Firestore profile
-        await setDoc(doc(db, "users", user.uid), {
+        // Create user profile in Realtime Database
+        await set(ref(rtdb, `users/${user.uid}`), {
           uid: user.uid,
-          name: username,
-          email,
-          phone,
+          email: email,
+          name: name,
+          phone: phone,
           role: "user",
           avatar: "",
+          isBanned: false,
           joinedAt: Date.now()
         });
 
-        alert("Account created successfully!");
+        console.log("User registered successfully");
         window.location.href = "dashboard.html";
-      } catch (error) {
-        console.error("Signup failed:", error.message);
-        alert("Signup failed: " + error.message);
+      } catch (err) {
+        alert("Signup failed: " + err.message);
       }
+    });
+
+    togglePassword.addEventListener("click", function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
     });
   </script>
 </body>
