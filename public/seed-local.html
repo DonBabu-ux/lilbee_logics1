@@ -65,45 +65,23 @@
     </div>
 
     <script type="module">
-        import { localDB } from "./local-db.js";
+        import { auth } from './firebase-admin.js';
 
-        const seedBtn = document.getElementById("seedBtn");
-        const statusDiv = document.getElementById("status");
+const email = "admin1@gmail.com";
+const password = "password123";
 
-        seedBtn.addEventListener("click", () => {
-            try {
-                const users = localDB.getUsers();
-                const adminEmail = "admin1@gmail.com";
+try {
+  await auth.getUserByEmail(email);
+  console.log("Admin already exists");
+} catch {
+  await auth.createUser({
+    email,
+    password,
+    displayName: "System Administrator",
+  });
+  console.log("Admin created in Firebase!");
+}
 
-                // Check if admin already exists
-                let admin = users.find(u => u.email === adminEmail);
-
-                if (admin) {
-                    admin.role = "admin"; // Ensure they are admin
-                    localDB.saveUser(admin);
-                    statusDiv.innerText = "Admin account updated successfully!";
-                } else {
-                    const newAdmin = {
-                        uid: "admin_" + Date.now(),
-                        email: adminEmail,
-                        password: "password123",
-                        role: "admin",
-                        name: "System Administrator",
-                        avatar: "",
-                        joinedAt: Date.now()
-                    };
-                    localDB.saveUser(newAdmin);
-                    statusDiv.innerText = "Admin account created successfully!";
-                }
-
-                statusDiv.className = "success";
-                alert("Seed complete! You can now log in with admin1@gmail.com / password123");
-
-            } catch (err) {
-                statusDiv.innerText = "Error: " + err.message;
-                statusDiv.className = "error";
-            }
-        });
     </script>
 </body>
 
