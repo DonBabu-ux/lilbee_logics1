@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+6<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -134,7 +134,7 @@
   </section>
 
   <div class="christmas-msg">
-    Make merry as we wait to welcome happy New year 🎊 from CEO LilBee Logics & Team!
+    Welcome to  happy New year 🎊 2026 🎊
     Happy Holidays 🎊🎈
 make merry responsibly.Our dear client 
   </div>
@@ -179,27 +179,7 @@ make merry responsibly.Our dear client
       </div>
   </footer>
 
-  <script>
-    function updateCountdown() {
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const christmas = new Date(`January 1, ${currentYear} 00:00:00`);
-      if (now > christmas) christmas.setFullYear(currentYear + 1);
-      const diff = christmas - now;
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-
-      document.getElementById('christmas-countdown').textContent =
-        `🎄 ${days}d ${hours}h ${mins}m ${secs}s until New year 🎉!🎈`;
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-  </script>
+  
 </body>
 
 </html>
